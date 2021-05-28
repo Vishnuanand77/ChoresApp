@@ -2,10 +2,13 @@ package com.vishnu.choresapp.Data
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.vishnu.choresapp.Model.*
+import java.text.DateFormat
+import java.util.*
 
 class ChoresDatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION){
 
@@ -49,4 +52,32 @@ class ChoresDatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABA
         db.close()
     }
 
+    fun retrieveChoreData(id: Int): Chore {
+        var  db: SQLiteDatabase = writableDatabase
+        var cursor: Cursor = db.query(TABLE_NAME, arrayOf(
+                KEY_ID,
+                KEY_CHORE_NAME,
+                KEY_CHORE_ASSIGNED_BY,
+                KEY_CHORE_ASSIGNED_TO,
+                KEY_CHORE_ASSIGNED_TIME
+            ), KEY_ID+"=?", arrayOf(id.toString()),
+            null, null, null, null)
+
+        if (cursor != null) {
+            cursor.moveToFirst()
+        }
+
+        var chore = Chore()
+        chore.choreName = cursor.getString(cursor.getColumnIndex(KEY_CHORE_NAME))
+        chore.assignedBy = cursor.getString(cursor.getColumnIndex(KEY_CHORE_ASSIGNED_BY))
+        chore.assignedTo = cursor.getString(cursor.getColumnIndex(KEY_CHORE_ASSIGNED_TO))
+        chore.timeAssigned = cursor.getLong(cursor.getColumnIndex(KEY_CHORE_ASSIGNED_TIME))
+
+        var dateFormat: java.text.DateFormat = DateFormat.getDateInstance()
+        var formattedDateTime = dateFormat.format(Date(cursor.getLong(cursor.getColumnIndex(KEY_CHORE_ASSIGNED_TIME))).time)
+
+
+        return chore
+
+    }
 }
