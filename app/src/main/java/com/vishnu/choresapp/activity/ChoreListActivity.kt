@@ -50,6 +50,7 @@ class ChoreListActivity : AppCompatActivity() {
 
         //Populating RecyclerView
         choreList = dbHandler!!.readChores()
+        choreList!!.reverse()
         adapter!!.notifyDataSetChanged()
         //testRead()
         for (c in choreList!!.iterator()) {

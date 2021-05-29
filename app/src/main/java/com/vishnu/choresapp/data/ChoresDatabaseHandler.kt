@@ -89,6 +89,7 @@ class ChoresDatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABA
 
         //Select all chores from table
         var selectAll = "SELECT * FROM $TABLE_NAME"
+        //var selectAll = "SELECT * FROM $TABLE_NAME ORDER BY id DESC"//Descending order
 
         var cursor: Cursor = db.rawQuery(selectAll, null)
 
