@@ -48,7 +48,7 @@ class ChoreListActivity : AppCompatActivity() {
             chore.choreName = c.choreName
             chore.assignedBy = c.assignedBy
             chore.assignedTo = c.assignedTo
-            //chore.timeAssigned = chore.showFormattedDate(chore.timeAssigned as Long)
+            chore.showFormattedDate(c.timeAssigned!!)
 
             //Log.d("Chore List ", c.choreName.toString())
 
