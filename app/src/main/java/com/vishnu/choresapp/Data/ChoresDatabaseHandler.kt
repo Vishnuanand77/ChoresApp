@@ -36,11 +36,12 @@ class ChoresDatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABA
     fun createChore(chore: Chore) {
         var db: SQLiteDatabase = writableDatabase
 
-        var values: ContentValues = ContentValues()
-        values.put(KEY_CHORE_NAME, chore.choreName)
-        values.put(KEY_CHORE_ASSIGNED_BY, chore.assignedBy)
-        values.put(KEY_CHORE_ASSIGNED_TO, chore.assignedTo)
-        values.put(KEY_CHORE_ASSIGNED_TIME, System.currentTimeMillis())
+        var values: ContentValues = ContentValues().apply {
+            put(KEY_CHORE_NAME, chore.choreName)
+            put(KEY_CHORE_ASSIGNED_BY, chore.assignedBy)
+            put(KEY_CHORE_ASSIGNED_TO, chore.assignedTo)
+            put(KEY_CHORE_ASSIGNED_TIME, System.currentTimeMillis())
+        }
 
         //Invoking the SQL query
         db?.insert(TABLE_NAME, null, values)
@@ -77,5 +78,19 @@ class ChoresDatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABA
 
         return chore
 
+    }
+
+    fun updateChore(chore: Chore): Int {
+        var db: SQLiteDatabase = writableDatabase
+
+        var values: ContentValues = ContentValues().apply {
+            put(KEY_CHORE_NAME, chore.choreName)
+            put(KEY_CHORE_ASSIGNED_BY, chore.assignedBy)
+            put(KEY_CHORE_ASSIGNED_TO, chore.assignedTo)
+            put(KEY_CHORE_ASSIGNED_TIME, System.currentTimeMillis())
+        }
+
+        //Update a Row
+        return db.update(TABLE_NAME, values, "$KEY_ID=", arrayOf(chore.id.toString()))
     }
 }
