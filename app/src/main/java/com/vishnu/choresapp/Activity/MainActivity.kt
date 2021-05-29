@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.widget.Toast
 import com.vishnu.choresapp.Data.ChoresDatabaseHandler
 import com.vishnu.choresapp.Model.Chore
 import com.vishnu.choresapp.R
@@ -14,11 +15,11 @@ class MainActivity : AppCompatActivity() {
     //Database Handler Initialization
     var dbHandler: ChoresDatabaseHandler? = null
 
-    //XML Initializations
-    var enterChore = enterChoreEditText
-    var assignedBy = assignedByEditText
-    var assignedTo = assignedToEditText
-    var saveBtn = saveButton
+//    //XML Initializations
+//    var enterChore = enterChoreEditText
+//    var assignedBy = assignedByEditText
+//    var assignedTo = assignedToEditText
+//    var saveBtn = saveButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,14 +27,28 @@ class MainActivity : AppCompatActivity() {
 
         dbHandler = ChoresDatabaseHandler(this)
 
-        saveBtn.setOnClickListener {
-            if (!TextUtils.isEmpty(enterChore.text.toString())
-                && !TextUtils.isEmpty(assignedBy.text.toString())
-                        && !TextUtils.isEmpty(assignedTo.text.toString())) {
-                TODO("SAVE TO DATABASE")
+        saveButton.setOnClickListener {
+            if (!TextUtils.isEmpty(enterChoreEditText.text.toString())
+                && !TextUtils.isEmpty(assignedByEditText.text.toString())
+                        && !TextUtils.isEmpty(assignedToEditText.text.toString())) {
+                
+                //Instantiating chore object from user input
+                var chore = Chore()
+                chore.choreName = enterChoreEditText.text.toString()
+                chore.assignedBy = assignedByEditText.text.toString()
+                chore.assignedTo = assignedToEditText.text.toString()
+                
+                //Invoking local save function
+                saveToDB(chore)
+            } else {
+                Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show()
             }
         }
 
+    }
+
+    fun saveToDB(chore: Chore) {
+        dbHandler!!.createChore(chore)
     }
 
     fun TestDB() {
