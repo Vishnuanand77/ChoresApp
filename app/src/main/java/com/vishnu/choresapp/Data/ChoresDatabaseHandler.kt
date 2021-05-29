@@ -103,4 +103,17 @@ class ChoresDatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABA
         //Close the database
         db.close()
     }
+
+    //Function to the count of chores present in the database
+    fun getChoresCount(): Int {
+        var db: SQLiteDatabase = readableDatabase
+
+        //Query
+        var countQuery = "SELECT * FROM $TABLE_NAME"
+
+        //Cursor
+        var cursor: Cursor = db.rawQuery(countQuery, null)
+
+        return cursor.count //Returns the number of entries in the table
+    }
 }
