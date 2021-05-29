@@ -1,5 +1,8 @@
 package com.vishnu.choresapp.model
 
+import java.text.DateFormat
+import java.util.*
+
 class Chore() {
 
     var choreName: String? = null
@@ -15,4 +18,14 @@ class Chore() {
         this.timeAssigned = timeAssigned
         this.id = id
     }
+
+    fun showFormattedDate(timeAssigned: Long): String {
+
+        var dateFormat: java.text.DateFormat = DateFormat.getDateInstance()
+        var formattedDate: String = dateFormat.format(Date(timeAssigned).time)
+
+        return "Created: $formattedDate"
+
+    }
+
 }
