@@ -17,15 +17,17 @@ class MainActivity : AppCompatActivity() {
         dbHandler = ChoresDatabaseHandler(this)
 
         var chore = Chore()
-        chore.choreName = "Clean Room 2"
-        chore.assignedTo = "Varun2"
-        chore.assignedBy = "Vishnu2"
+        chore.choreName = "Clean Room 3"
+        chore.assignedTo = "Varun"
+        chore.assignedBy = "Vishnu"
 
         dbHandler!!.createChore(chore)
 
-        //Read from database
-        var chores: Chore = dbHandler!!.retrieveChoreData(2)
+        Log.d("Database Entry ", chore.choreName.toString() )
 
-        Log.d("Item:", chores.choreName.toString())
+        //Read from database
+        var chores: Chore = dbHandler!!.retrieveChoreData(3)
+
+        Log.d("Item:", chores.id.toString() + " " + chores.choreName.toString())
     }
 }
