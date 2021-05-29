@@ -46,6 +46,8 @@ class MainActivity : AppCompatActivity() {
                 //Invoking local save function
                 saveToDB(chore)
                 progressDialog!!.cancel()
+
+                //Switching to a new page on save
                 startActivity(Intent(this, ChoreListActivity::class.java))
             } else {
                 Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show()
