@@ -49,7 +49,7 @@ class ChoresDatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABA
         Log.d("DATA INSERTED", "SUCCESS")
 
         //Closing the database
-
+        db.close()
     }
 
     fun retrieveChoreData(id: Int): Chore {
@@ -92,5 +92,15 @@ class ChoresDatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABA
 
         //Update a Row
         return db.update(TABLE_NAME, values, "$KEY_ID=", arrayOf(chore.id.toString()))
+    }
+
+    fun deleteChore(chore: Chore) {
+        var db: SQLiteDatabase = writableDatabase
+
+        //Delete a Row
+        db.delete(TABLE_NAME, "$KEY_ID=?", arrayOf(chore.id.toString()))
+
+        //Close the database
+        db.close()
     }
 }
