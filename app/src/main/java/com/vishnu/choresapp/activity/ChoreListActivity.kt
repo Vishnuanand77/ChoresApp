@@ -1,7 +1,9 @@
 package com.vishnu.choresapp.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -15,6 +17,7 @@ import com.vishnu.choresapp.model.Chore
 import kotlinx.android.synthetic.main.activity_chore_list.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.popup.*
 import kotlinx.android.synthetic.main.popup.view.*
 
 class ChoreListActivity : AppCompatActivity() {
@@ -87,12 +90,36 @@ class ChoreListActivity : AppCompatActivity() {
         var choreName = view.popEnterChore
         var assignedBy = view.popAssignedBy
         var assignedTo = view.popAssignedTo
-        var saveBtn = view.saveButton
+        var saveBtn = view.popSaveButton
 
         //Dialog Builder
         dialogBuilder = AlertDialog.Builder(this).setView(view)
         dialog = dialogBuilder!!.create()
         dialog?.show()
+
+        saveBtn.setOnClickListener {
+            var name= choreName.text.toString().trim()
+            var assignedByText = assignedBy.text.toString().trim()
+            var assignedToText = assignedTo.text.toString().trim()
+            if (!TextUtils.isEmpty(name)
+                && !TextUtils.isEmpty(assignedByText)
+                    && !TextUtils.isEmpty(assignedToText)) {
+
+                var chore = Chore()
+                chore.choreName = name
+                chore.assignedBy = assignedByText
+                chore.assignedTo = assignedToText
+
+                dbHandler!!.createChore(chore)
+
+                dialog!!.dismiss()
+
+                startActivity(Intent(this, ChoreListActivity::class.java))
+                finish()
+            } else {
+
+            }
+        }
     }
 
     fun testRead() {
