@@ -1,4 +1,4 @@
-package com.vishnu.choresapp.Model
+package com.vishnu.choresapp.model
 
 class Chore() {
 

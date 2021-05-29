@@ -1,4 +1,4 @@
-package com.vishnu.choresapp.Model
+package com.vishnu.choresapp.model
 
 //We add all database constants in this class
 val DATABASE_VERSION: Int = 1

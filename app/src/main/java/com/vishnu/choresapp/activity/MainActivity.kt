@@ -1,12 +1,14 @@
-package com.vishnu.choresapp.Activity
+package com.vishnu.choresapp.activity
 
+import android.app.ProgressDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
-import com.vishnu.choresapp.Data.ChoresDatabaseHandler
-import com.vishnu.choresapp.Model.Chore
+import com.vishnu.choresapp.data.ChoresDatabaseHandler
+import com.vishnu.choresapp.model.Chore
 import com.vishnu.choresapp.R
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,19 +17,22 @@ class MainActivity : AppCompatActivity() {
     //Database Handler Initialization
     var dbHandler: ChoresDatabaseHandler? = null
 
-//    //XML Initializations
-//    var enterChore = enterChoreEditText
-//    var assignedBy = assignedByEditText
-//    var assignedTo = assignedToEditText
-//    var saveBtn = saveButton
+    //ProgressDialog
+    var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //DB Handler setup
         dbHandler = ChoresDatabaseHandler(this)
+        //Progress Dialog setup
+        progressDialog = ProgressDialog(this)
+        progressDialog!!.setTitle("Saving...")
 
         saveButton.setOnClickListener {
+            progressDialog!!.setMessage("Saving...")
+            progressDialog!!.show()
             if (!TextUtils.isEmpty(enterChoreEditText.text.toString())
                 && !TextUtils.isEmpty(assignedByEditText.text.toString())
                         && !TextUtils.isEmpty(assignedToEditText.text.toString())) {
@@ -40,8 +45,11 @@ class MainActivity : AppCompatActivity() {
                 
                 //Invoking local save function
                 saveToDB(chore)
+                progressDialog!!.cancel()
+                startActivity(Intent(this, ChoreListActivity::class.java))
             } else {
                 Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show()
+                progressDialog!!.cancel()
             }
         }
 

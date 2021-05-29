@@ -1,4 +1,4 @@
-package com.vishnu.choresapp.Data
+package com.vishnu.choresapp.data
 
 import android.content.ContentValues
 import android.content.Context
@@ -6,7 +6,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.vishnu.choresapp.Model.*
+import com.vishnu.choresapp.model.*
 import java.text.DateFormat
 import java.util.*
 
