@@ -38,7 +38,7 @@ class ChoreListAdapter(private val list: ArrayList<Chore>,
             choreName.text = chore.choreName
             choreAssignedBy.text = chore.assignedBy
             choreAssignedTo.text = chore.assignedTo
-            choreDate.text = chore.showFormattedDate(chore.timeAssigned!!)
+            //choreDate.text = chore.showFormattedDate(chore.timeAssigned!!)
         }
 
     }

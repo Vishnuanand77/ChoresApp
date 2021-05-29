@@ -7,18 +7,20 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.vishnu.choresapp.data.ChoresDatabaseHandler
 import com.vishnu.choresapp.model.Chore
 import com.vishnu.choresapp.R
+import com.vishnu.choresapp.data.ChoreListAdapter
+import kotlinx.android.synthetic.main.activity_chore_list.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    //Database Handler Initialization
-    var dbHandler: ChoresDatabaseHandler? = null
+    var dbHandler: ChoresDatabaseHandler? = null //Database Handler Initialization
+    var progressDialog: ProgressDialog? = null //ProgressDialog
 
-    //ProgressDialog
-    var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +28,11 @@ class MainActivity : AppCompatActivity() {
 
         //DB Handler setup
         dbHandler = ChoresDatabaseHandler(this)
+
         //Progress Dialog setup
         progressDialog = ProgressDialog(this)
         progressDialog!!.setTitle("Saving...")
+
 
         saveButton.setOnClickListener {
             progressDialog!!.setMessage("Saving...")
