@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vishnu.choresapp.R
@@ -13,6 +14,8 @@ import com.vishnu.choresapp.data.ChoresDatabaseHandler
 import com.vishnu.choresapp.model.Chore
 import kotlinx.android.synthetic.main.activity_chore_list.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.popup.view.*
 
 class ChoreListActivity : AppCompatActivity() {
 
@@ -21,6 +24,8 @@ class ChoreListActivity : AppCompatActivity() {
     private var choreList: ArrayList<Chore>? = null //Array of chore objects Initialization
     private var choreListItems: ArrayList<Chore>? = null //Dummy list
     private var layoutManager: RecyclerView.LayoutManager? = null //RecyclerView Layout Manager Initialization
+    private var dialogBuilder: AlertDialog.Builder? = null //Alert Dialog Builder Initialization
+    private var dialog: AlertDialog? = null //Alert Dialog  Initialization
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,8 +74,25 @@ class ChoreListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item!!.itemId == R.id.add_menu_button) {
             Log.d("Item Clicked", "Menu Item Clicked")
+
+            createPopupDialog()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun createPopupDialog() {
+        var view = layoutInflater.inflate(R.layout.popup, null)
+
+        //XML Initializations
+        var choreName = view.popEnterChore
+        var assignedBy = view.popAssignedBy
+        var assignedTo = view.popAssignedTo
+        var saveBtn = view.saveButton
+
+        //Dialog Builder
+        dialogBuilder = AlertDialog.Builder(this).setView(view)
+        dialog = dialogBuilder!!.create()
+        dialog?.show()
     }
 
     fun testRead() {

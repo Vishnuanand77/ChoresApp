@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this)
         progressDialog!!.setTitle("Saving...")
 
+        //If DB has data, directly display RecyclerView
+        checkDb()
+
 
         saveButton.setOnClickListener {
             progressDialog!!.setMessage("Saving...")
@@ -59,6 +62,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    fun checkDb() {
+        if (dbHandler!!.getChoresCount() > 0) {
+            startActivity(Intent(this, ChoreListActivity::class.java))
+        }
     }
 
     fun saveToDB(chore: Chore) {
