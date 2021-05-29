@@ -5,4 +5,5 @@
     <string name="assigned_by">Assigned by</string>
     <string name="saveButton">Save Chore</string>
     <string name="imageDescription">Icon of a Chore</string>
+    <string name="menu_title">Add Chore</string>
 </resources>
