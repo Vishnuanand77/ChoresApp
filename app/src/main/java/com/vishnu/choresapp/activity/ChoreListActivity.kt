@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -118,7 +119,7 @@ class ChoreListActivity : AppCompatActivity() {
                 startActivity(Intent(this, ChoreListActivity::class.java))
                 finish()
             } else {
-
+                Toast.makeText(this, "Please enter all fields", Toast.LENGTH_SHORT).show()
             }
         }
     }
