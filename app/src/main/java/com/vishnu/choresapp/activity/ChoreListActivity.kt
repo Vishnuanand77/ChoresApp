@@ -59,8 +59,8 @@ class ChoreListActivity : AppCompatActivity() {
             val chore = Chore()
             chore.id = c.id
             chore.choreName = c.choreName
-            chore.assignedBy = c.assignedBy
-            chore.assignedTo = c.assignedTo
+            chore.assignedBy = "Assigned By: ${c.assignedBy}"
+            chore.assignedTo = "Assigned To: ${c.assignedTo}"
             chore.showFormattedDate(c.timeAssigned!!)
 
             //Log.d("Chore List ", c.choreName.toString())
