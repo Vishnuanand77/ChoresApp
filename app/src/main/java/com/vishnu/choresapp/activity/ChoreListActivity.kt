@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.vishnu.choresapp.R
@@ -53,8 +54,12 @@ class ChoreListActivity : AppCompatActivity() {
         choreList = dbHandler!!.readChores()
         choreList!!.reverse()
         adapter!!.notifyDataSetChanged()
-        //testRead()
+
+
+
         for (c in choreList!!.iterator()) {
+
+            DefaultText.isVisible = choreList.isNullOrEmpty()
 
             val chore = Chore()
             chore.id = c.id

@@ -47,6 +47,8 @@ class ChoreListAdapter(private val list: ArrayList<Chore>,
         var mContext = context
         var mList = list
 
+
+
         fun bindItem(chore: Chore) {
             //Registering User Input
             choreName.text = chore.choreName
