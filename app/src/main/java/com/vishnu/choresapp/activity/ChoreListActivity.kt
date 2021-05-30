@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
@@ -74,6 +75,11 @@ class ChoreListActivity : AppCompatActivity() {
             choreListItems!!.add(chore)
         }
 
+        val fab: View = findViewById(R.id.floatingActionButton)
+        fab.setOnClickListener {
+            createPopupDialog()
+        }
+
 
     }
 
@@ -104,6 +110,7 @@ class ChoreListActivity : AppCompatActivity() {
         dialogBuilder = AlertDialog.Builder(this).setView(view)
         dialog = dialogBuilder!!.create()
         dialog?.show()
+
 
         saveBtn.setOnClickListener {
             var name= choreName.text.toString().trim()
