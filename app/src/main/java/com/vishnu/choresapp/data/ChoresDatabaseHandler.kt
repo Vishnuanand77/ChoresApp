@@ -128,11 +128,11 @@ class ChoresDatabaseHandler(context: Context) : SQLiteOpenHelper(context, DATABA
         return db.update(TABLE_NAME, values, "$KEY_ID=", arrayOf(chore.id.toString()))
     }
 
-    fun deleteChore(chore: Chore) {
+    fun deleteChore(id: Int) {
         var db: SQLiteDatabase = writableDatabase
 
         //Delete a Row
-        db.delete(TABLE_NAME, "$KEY_ID=?", arrayOf(chore.id.toString()))
+        db.delete(TABLE_NAME, "$KEY_ID=?", arrayOf(id.toString()))
 
         //Close the database
         db.close()

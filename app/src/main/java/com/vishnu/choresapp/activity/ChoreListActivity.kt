@@ -57,6 +57,7 @@ class ChoreListActivity : AppCompatActivity() {
         for (c in choreList!!.iterator()) {
 
             val chore = Chore()
+            chore.id = c.id
             chore.choreName = c.choreName
             chore.assignedBy = c.assignedBy
             chore.assignedTo = c.assignedTo

@@ -18,7 +18,7 @@ class ChoreListAdapter(private val list: ArrayList<Chore>,
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
         //Here we create the view from the xml file
         val view = LayoutInflater.from(context).inflate(R.layout.list_row, parent, false)
-        return ViewHolder(view, context)
+        return ViewHolder(view, context, list)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -29,7 +29,7 @@ class ChoreListAdapter(private val list: ArrayList<Chore>,
         return list.size
     }
 
-    class ViewHolder(itemView: View, context: Context): RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class ViewHolder(itemView: View, context: Context, list: ArrayList<Chore>): RecyclerView.ViewHolder(itemView), View.OnClickListener {
         //TextView Initializations
         var choreName = itemView.findViewById(R.id.listChoreName) as TextView
         var choreAssignedBy = itemView.findViewById(R.id.listAssignedBy) as TextView
@@ -40,6 +40,7 @@ class ChoreListAdapter(private val list: ArrayList<Chore>,
         var editButton = itemView.findViewById(R.id.listEditButton) as Button
 
         var mContext = context
+        var mList = list
 
         fun bindItem(chore: Chore) {
             //Registering User Input
@@ -54,16 +55,28 @@ class ChoreListAdapter(private val list: ArrayList<Chore>,
         }
 
         override fun onClick(v: View?) {
+            var mPosition: Int = adapterPosition
+            var chore = mList[mPosition]
             when (v!!.id) {
                 editButton.id -> {
-                    Toast.makeText(mContext, "Edit Button", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(mContext, "Edit Button", Toast.LENGTH_SHORT).show()
 
                 }
                 deleteButton.id -> {
-                    Toast.makeText(mContext, "Delete Button", Toast.LENGTH_SHORT).show()
+                    deleteChore(chore.id!!.toInt())
+                    mList.removeAt(adapterPosition)
+                    notifyItemRemoved(adapterPosition)
+                    //Toast.makeText(mContext, "Delete Button", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
+        fun deleteChore(id: Int) {
+            var db: ChoresDatabaseHandler = ChoresDatabaseHandler(mContext)
+
+            db.deleteChore(id)
+        }
+
 
     }
 }
